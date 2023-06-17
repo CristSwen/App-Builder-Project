@@ -29,6 +29,8 @@ API.</p>
 using manage.py startapp then registered it within the settings.py. Afterwards I created<br>
 the base and home templates within a new templates folder. Within the views the home page<br>
 needed to be rendered, so I added the function to do that.</p>
+
+
 ```
 <!--This is the home page to render -->
 {% extends "tft_base.html" %}
@@ -56,6 +58,8 @@ needed to be rendered, so I added the function to do that.</p>
 {% endblock %}
 ```
 <br>
+
+
 ```
 urlpatterns = [
     path('', views.tft_home, name='tft_index'),
@@ -67,6 +71,8 @@ urlpatterns = [
 <p>I needed to next create the model for the databse. The model included two classes for FavoriteSet and<br>
 LeastFavoriteSet. These both had input fields and set choices for the user. I added it to the views so<br>
 it could render and added a template to my app folder for creating a new item. Right below is the model.<br></p>
+
+
 ```
 from django.db import models
 
@@ -120,6 +126,8 @@ class LeastFavoriteSet(models.Model):
 <p>The below function is what allows you to create your favorite set. If the method is POST and<br>
 and the form is valid it saves it and returns you to the stored sets. It can then render the entries.<br>
 There is an identical one for Least Favorite</p>
+
+
 ```
 def create_favorite(request):
     form = CreateSetForm2(data=request.POST or None)
@@ -136,6 +144,8 @@ def create_favorite(request):
 creating a new HTML page and link it from my home page. I added a function that fetches all the<br>
 items from the database and sends them to the template. Below is the where the set entries got displayed.<br>
 There is an identical version of this same code for Least Favorite sets as well.</p>
+
+
 ```
 {% extends 'tft_base.html' %}
     {% block title %}Favorite Sets{% endblock %}
@@ -176,6 +186,8 @@ There is an identical version of this same code for Least Favorite sets as well.
 ```
 <br>
 <p>This is where you could access your Favorite and Least Favorite sets</p>
+
+
 ```
 <div class="fave_and_least">
         <button type="button" class="btn btn-light btn-lg"><a href="{% url 'favorite' %}">Add Favorite Set</a></button>
@@ -187,6 +199,8 @@ There is an identical version of this same code for Least Favorite sets as well.
 <br>
 <p>These two functions is what shows you the sets you have created. It grabs all the objects in the database,<br>
 places it into a variable called content and renders it. There is an identical one for Least Favorite</p>
+
+
 ```
 def stored_sets(request):
     #This is for FAVORITE sets
@@ -204,6 +218,8 @@ def faveList(request):
 <p>After getting the favorite and least favorite sets to display on their own page, the next<br>
 thing to do was create a details page. The details page will hold the details of the one specific<br>
 entry you want to look at. There is an identical version of the code below for the Favorite set.<br></p>
+
+
 ```
 <div id="select_menu">
                 {% for s in entry2 %}
@@ -215,6 +231,8 @@ entry you want to look at. There is an identical version of the code below for t
 <p>This is the function that will take you to the details page. It grabs the primary key of the entry<br>
 you are asking for and filters the objects to just that one places it in content and renders it. There<br>
 is an identical version for Least Favorite</p>
+
+
 ```
 def stored_sets_details(request, pk):
     #This is for FAVORITE sets
@@ -231,6 +249,8 @@ if you edited an entry, it would edit a different entry as well. There also need
 that would confirm if you wanted to delete the entry or not. Below is the delete function.<br>
 Like the details function it would grab the primary key, confirm that the method was POST<br>
 then delete the item. There is an identical one for Least Favorite</p>
+
+
 ```
 def fave_delete(request, pk):
     pk = int(pk)
@@ -245,6 +265,8 @@ def fave_delete(request, pk):
 <p>The edit function required a little bit more code as it needed to call the CreateSetForm<br>
 function as well. Like the other functions it would grab the Primary Key check for POST and validity<br>
 and save the entry and redirect you. There is an identical version of this code for Favorite.</p>
+
+
 ```
 def leastFaveEdit(request, pk):
     pk = int(pk)
@@ -271,6 +293,8 @@ the page. For mine I decided that it would interesting to make a search bar inst
 search bar would look up any magic card you input and it would grab all the cards with<br>
 that name and give you the colors and cmc of the cards. It was my hardest story on the project.<br>
 the Code below is the search method. This is what allowed you to use the search button</p>
+
+
 ```
 def mtg_search(request):
     if request.method == "POST":
@@ -285,6 +309,8 @@ def mtg_search(request):
 <p>The Api method would then loop over all the cards in the response and extract<br>
 their names and cmc. It will then pass the list of cards that fit the match to the<br>
 template context.</p>
+
+
 ```
 def tft_api(request):
     if request.method == "POST":
@@ -318,6 +344,8 @@ def tft_api(request):
 help to look presentable. I won't post all of it since it is a lot, but here are some<br>
 examples. for the first one I created a static background that wouldn't move as the<br>
 user scrolled.<br></p>
+
+
 ```
 .set1Bg_img {
     background: url("/static/images/app-images/tfthome.png") no-repeat center center fixed;
@@ -327,6 +355,8 @@ user scrolled.<br></p>
 <br>
 <p>The footer had quite a bit of styling to it. This is only a bit of it, but there<br>
 is more for left side along with certain elements as well.</p>
+
+
 ```
 #block-footer {
     clear: both;
@@ -350,6 +380,8 @@ is more for left side along with certain elements as well.</p>
 For example set 2 had a pinkish red header color with black shadows. All the paragraph<br>
 text would either be black or white with shadow effects based on the darkness or lightness<br>
 of the background image.<br></p>
+
+
 ```
 .set2h {
     color: #FA8072;
